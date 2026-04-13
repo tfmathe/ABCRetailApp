@@ -1,0 +1,49 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Product Images";
+}
+
+<h2>🖼️ Product Images (Blob Storage)</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Upload New Image</h5>
+        <form method="post" asp-action="Upload" enctype="multipart/form-data"
+              asp-controller="Blob">
+            <div class="input-group">
+                <input type="file" name="file" class="form-control"
+                       accept="image/*" required />
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var url in Model)
+    {
+        var fileName = url.Split('/').Last();
+        <div class="col-md-3 mb-3">
+            <div class="card h-100">
+                <img src="@url" class="card-img-top"
+                     style="height:180px; object-fit:cover;" />
+                <div class="card-body text-center">
+                    <small class="text-muted">@fileName</small><br />
+                    <a asp-action="Delete" asp-controller="Blob"
+                       asp-route-fileName="@fileName"
+                       class="btn btn-danger btn-sm mt-2"
+                       onclick="return confirm('Delete this image?')">
+                        🗑️ Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No images uploaded yet. Upload your first product image above.
+    </div>
+}

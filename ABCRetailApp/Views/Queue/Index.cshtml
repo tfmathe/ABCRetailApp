@@ -1,0 +1,70 @@
+﻿@using Azure.Storage.Queues.Models
+@model List<PeekedMessage>
+@{
+    ViewData["Title"] = "Order Queue";
+}
+
+<h2>🛒 Order Processing (Queue Storage)</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Send Order Message</h5>
+        <form method="post" asp-action="SendMessage" asp-controller="Queue">
+            <div class="row g-2">
+                <div class="col-md-9">
+                    <input name="message" class="form-control"
+                           placeholder="e.g. Processing order #1042 | Uploading image ProductX"
+                           required />
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Send Message
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h5>Current Queue Messages (@Model.Count)</h5>
+    <form method="post" asp-action="ClearQueue" asp-controller="Queue">
+        <button type="submit" class="btn btn-warning btn-sm"
+                onclick="return confirm('Clear all messages?')">
+            🗑️ Clear Queue
+        </button>
+    </form>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No messages in the queue. Send an order message above.
+    </div>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Message</th>
+                <th>Message ID</th>
+                <th>Dequeue Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@Model[i].MessageText</td>
+                    <td>
+                        <small class="text-muted">@Model[i].MessageId</small>
+                    </td>
+                    <td>@Model[i].DequeueCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

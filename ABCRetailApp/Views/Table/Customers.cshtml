@@ -1,0 +1,72 @@
+﻿@using System.IO
+@using ABCRetailApp.Models
+@model List<CustomerEntity>
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<h2>👥 Customer Profiles (Table Storage)</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Add New Customer</h5>
+        <form method="post" asp-action="AddCustomer" asp-controller="Table">
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <input name="Name" class="form-control"
+                           placeholder="Full Name" required />
+                </div>
+                <div class="col-md-3">
+                    <input name="Email" type="email" class="form-control"
+                           placeholder="Email" required />
+                </div>
+                <div class="col-md-2">
+                    <input name="Phone" class="form-control"
+                           placeholder="Phone" required />
+                </div>
+                <div class="col-md-3">
+                    <input name="Address" class="form-control"
+                           placeholder="Address" required />
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Added</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@c.Email</td>
+                <td>@c.Phone</td>
+                <td>@c.Address</td>
+                <td>@c.Timestamp?.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-action="DeleteCustomer" asp-controller="Table"
+                       asp-route-partitionKey="@c.PartitionKey"
+                       asp-route-rowKey="@c.RowKey"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete this customer?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p><strong>Total Customers: @Model.Count</strong></p>

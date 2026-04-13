@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center py-5">
+    <h1 class="display-4">🛒 Welcome to ABC Retail</h1>
+    <p class="lead">
+        A cloud-powered retail management system built on Microsoft Azure.
+    </p>
+        <hr />
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h2>🖼️</h2>
+                <h5 class="card-title">Product Images</h5>
+                <p class="card-text">
+                    Upload and manage product images
+                    stored in Azure Blob Storage.
+                </p>
+                <a asp-controller="Blob" asp-action="Index"
+                   class="btn btn-primary">
+                    Manage Images
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h2>👥</h2>
+                <h5 class="card-title">Customers</h5>
+                <p class="card-text">
+                    Store and manage customer profiles
+                    using Azure Table Storage.
+                </p>
+                <a asp-controller="Table" asp-action="Customers"
+                   class="btn btn-primary">
+                    Manage Customers
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h2>📦</h2>
+                <h5 class="card-title">Products</h5>
+                <p class="card-text">
+                    Store and manage product information
+                    using Azure Table Storage.
+                </p>
+                <a asp-controller="Table" asp-action="Products"
+                   class="btn btn-primary">
+                    Manage Products
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h2>🛒</h2>
+                <h5 class="card-title">Orders</h5>
+                <p class="card-text">
+                    Process and manage orders using
+                    Azure Queue Storage.
+                </p>
+                <a asp-controller="Queue" asp-action="Index"
+                   class="btn btn-primary">
+                    Manage Orders
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h2>📁</h2>
+                <h5 class="card-title">Log Files</h5>
+                <p class="card-text">
+                    Upload and manage log files using
+                    Azure File Storage.
+                </p>
+                <a asp-controller="File" asp-action="Index"
+                   class="btn btn-primary">
+                    Manage Logs
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
